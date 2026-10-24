@@ -234,6 +234,7 @@ interface IToastivaData {
   styles?: IToastivaStyleOverrides;
   timing?: IToastivaTiming;
   title: string;
+  timerVersion?: number;
   type: TToastivaType;
 }
 

@@ -84,6 +84,10 @@ function updateToast<T extends string, U extends TToastUpdateOptions>(
     title: options.title ?? current.title,
     type: options.type ?? current.type,
     duration: options.duration ?? current.duration,
+    timerVersion:
+      options.duration === undefined
+        ? current.timerVersion
+        : (current.timerVersion ?? 0) + 1,
     isLoading: options.isLoading ?? current.isLoading,
     timing: options.timing ?? current.timing,
     dismissible: options.dismissible ?? current.dismissible,
