@@ -333,7 +333,12 @@ function useToastEffects(params: IUseToastEffectsParams) {
     values,
   ]);
 
+  const progressVersionRef = useRef(toast.timerVersion);
   useEffect(() => {
+    if (progressVersionRef.current !== toast.timerVersion) {
+      progressVersionRef.current = toast.timerVersion;
+      values.progress.value = 0;
+    }
     values.progress.value = withTiming(1, {
       duration: getProgressDuration(toast, hasBody, shouldAutoExpand),
       easing: Easing.linear,

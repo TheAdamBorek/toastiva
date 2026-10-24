@@ -1,4 +1,5 @@
 export { ToastivaProvider } from "./components/ToastivaProvider";
+export { SpinnerIcon } from "./icons";
 export { toastiva } from "./store";
 export {
   ToastivaAnimationPreset,

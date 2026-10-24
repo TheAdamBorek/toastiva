@@ -30,6 +30,7 @@ function useToastDismiss(params: IUseToastDismissParams) {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const remainingRef = useRef<number | null>(null);
   const timerStartRef = useRef(0);
+  const timerVersionRef = useRef(toast.timerVersion);
   const expandedBodyVisibleRef = useRef(false);
   const collapseDuration = getCollapseDuration(toast);
   const displayDuration = getDisplayDuration(toast);
@@ -127,6 +128,11 @@ function useToastDismiss(params: IUseToastDismissParams) {
       hasBody && shouldAutoExpand
         ? Math.max(0, displayDuration - SHOW_BODY_DELAY - collapseDuration)
         : displayDuration;
+
+    if (timerVersionRef.current !== toast.timerVersion) {
+      timerVersionRef.current = toast.timerVersion;
+      remainingRef.current = null;
+    }
 
     const delay = remainingRef.current ?? autoDismissDelay;
     timerStartRef.current = Date.now();
