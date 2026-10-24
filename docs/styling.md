@@ -62,6 +62,25 @@ Android uses the React Native `filter: [{ blur }]` style prop for the morph head
 > [!WARNING]
 > `filter: [{ blur }]` only renders on **React Native 0.76+** with the **New Architecture (Fabric)** enabled. On RN &lt; 0.76 (or legacy Paper renderer), the prop is a no-op on Android &mdash; the toast renders correctly, but the blurred header layer will be flat. There is no JS-side fallback for older versions; upgrade RN if the blur is required on Android.
 
+## Shadow on Android
+
+Android draws the toast shadow as soft rings along the surface outline, so it follows the morph and the header tab. It is on by default. iOS and web keep their native shadows.
+
+```tsx
+<ToastivaProvider
+  androidShadow={{ color: "#152b3b", opacity: 0.36, offsetY: 12, radius: 28 }}
+>
+```
+
+<table>
+  <tr><td><code>color</code></td><td>Shadow color. Defaults to <code>"#000"</code>.</td></tr>
+  <tr><td><code>opacity</code></td><td>Opacity at the surface edge. Defaults to <code>0.28</code>.</td></tr>
+  <tr><td><code>offsetX</code>, <code>offsetY</code></td><td>Offset in dp. Default to <code>0</code> and <code>12</code>.</td></tr>
+  <tr><td><code>radius</code></td><td>Distance in dp over which the shadow fades out. Defaults to <code>28</code>.</td></tr>
+</table>
+
+Pass `androidShadow={false}` to turn it off. Works globally on `ToastivaProvider` or per toast. The shadow assumes an opaque `fill`: a translucent surface shows the inner half of the rings.
+
 ## Style slots
 
 <table>

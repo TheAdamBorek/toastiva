@@ -22,6 +22,8 @@ const BlobPath: React.MemoExoticComponent<React.FC<IBlobPathProps>> = memo(
         fill={props.fill}
         filter={props.filter}
         stroke={props.stroke}
+        strokeLinejoin={props.strokeLinejoin}
+        strokeOpacity={props.strokeOpacity}
         strokeWidth={props.strokeWidth}
         transform={props.transform}
       />

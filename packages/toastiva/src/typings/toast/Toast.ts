@@ -65,6 +65,7 @@ type TToastivaPromiseMessage<TData> = string | ((value: TData) => string);
 type TToastivaSpringConfig = Partial<WithSpringConfig>;
 type TToastivaVerticalPosition = `${ToastivaVerticalPosition}`;
 type TToastivaIOSBlurTint = NonNullable<BlurViewProps["tint"]>;
+type TToastivaAndroidShadow = boolean | IToastivaAndroidShadow;
 
 interface IToastivaAnimationSpringConfig {
   bodyReveal?: TToastivaSpringConfig;
@@ -118,6 +119,14 @@ interface IToastivaAnimationConfig {
   stack?: IToastivaStackAnimationConfig;
 }
 
+interface IToastivaAndroidShadow {
+  color?: string;
+  offsetX?: number;
+  offsetY?: number;
+  opacity?: number;
+  radius?: number;
+}
+
 interface IToastivaAction {
   label: string;
   onPress: () => void;
@@ -155,6 +164,7 @@ interface IToastivaStyleOverrides {
 
 interface IToastivaOptions {
   action?: IToastivaAction;
+  androidShadow?: TToastivaAndroidShadow;
   animation?: IToastivaAnimationConfig;
   animationPreset?: TToastivaAnimationPreset;
   bodyLayout?: TToastivaBodyLayout;
@@ -200,6 +210,7 @@ interface IResolvedToastTheme {
 
 interface IToastivaData {
   action?: IToastivaAction;
+  androidShadow?: TToastivaAndroidShadow;
   animation?: IToastivaAnimationConfig;
   animationPreset?: TToastivaAnimationPreset;
   bodyLayout?: TToastivaBodyLayout;
@@ -268,6 +279,7 @@ interface IToastivaPromiseData<TResult, TError = unknown> extends Omit<
 }
 
 interface IToastivaConfig {
+  androidShadow?: TToastivaAndroidShadow;
   animation?: IToastivaAnimationConfig;
   animationPreset?: TToastivaAnimationPreset;
   bodyLayout?: TToastivaBodyLayout;
@@ -311,6 +323,7 @@ export {
 };
 export type {
   IResolvedToastTheme,
+  IToastivaAndroidShadow,
   IToastivaAnimationConfig,
   IToastivaAnimationSpringConfig,
   IToastivaAction,
@@ -329,6 +342,7 @@ export type {
   IToastivaStyleOverrides,
   IToastivaTheme,
   IToastivaTiming,
+  TToastivaAndroidShadow,
   TToastivaAnimationAxis,
   TToastivaAnimationPreset,
   TToastivaBodyLayout,

@@ -19,6 +19,7 @@ import { getStackAlign } from "../utils/toast-align";
 import { resolveToastAnimationConfig } from "../utils/toast-animation";
 import { getToastHeights, getToastWidths } from "../utils/toast-layout";
 import { getBodyLayout, getToastMeta } from "../utils/toast-meta";
+import { resolveAndroidShadow } from "../utils/toast-shadow";
 import { useToastAnimatedStyles } from "./use-toast-animated-styles";
 import { useToastDismiss } from "./use-toast-dismiss";
 import { useToastEffects } from "./use-toast-effects";
@@ -426,6 +427,9 @@ function useToastCard(props: IToastivaProps) {
 
   return {
     Icon: iconMap[props.toast.type],
+    androidShadow: resolveAndroidShadow(
+      props.toast.androidShadow ?? props.defaultAndroidShadow,
+    ),
     animated,
     bodyLayout,
     color: theme.colors[props.toast.type],

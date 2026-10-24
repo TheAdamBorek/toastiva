@@ -125,6 +125,7 @@ const ToastMorphSlot: React.MemoExoticComponent<
             morphMode
             swipeToDismiss={props.swipeToDismiss}
             swipeThreshold={props.swipeThreshold}
+            defaultAndroidShadow={props.defaultAndroidShadow}
             defaultAnimation={props.defaultAnimation}
             defaultAnimationPreset={props.defaultAnimationPreset}
             defaultBodyLayout={

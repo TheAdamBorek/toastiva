@@ -11,5 +11,6 @@ export { ToastMeasure } from "./ToastMeasure";
 export { ToastMeasureBody } from "./ToastMeasureBody";
 export { ToastMorphSlot } from "./ToastMorphSlot";
 export { ToastProgress } from "./ToastProgress";
+export { ToastShadow } from "./ToastShadow";
 export { ToastStack } from "./ToastStack";
 export { ToastSurface } from "./ToastSurface";

@@ -50,6 +50,7 @@ const ToastCard: React.MemoExoticComponent<React.FC<IToastCardProps>> = memo(
                   toast={props.toast}
                   Icon={props.Icon}
                   actionStyle={props.animated.actionStyle}
+                  androidShadow={props.androidShadow}
                   animatedPathProps={props.animated.animatedPathProps}
                   bodyLayout={props.bodyLayout}
                   bodyStyle={props.animated.bodyStyle}

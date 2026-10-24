@@ -8,6 +8,7 @@ import type {
 
 interface IToastStackProps {
   bottomInset: number;
+  defaultAndroidShadow: ValueOf<IToastivaConfig, "androidShadow">;
   defaultAnimation: ValueOf<IToastivaConfig, "animation">;
   defaultAnimationPreset: ValueOf<IToastivaConfig, "animationPreset">;
   defaultBodyLayout: ValueOf<IToastivaConfig, "bodyLayout">;

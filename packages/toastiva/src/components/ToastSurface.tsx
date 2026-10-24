@@ -5,10 +5,12 @@ import Svg from "react-native-svg";
 import { styles } from "../styles/toast.styles";
 import type { IToastSurfaceProps } from "../typings";
 import { ToastivaHorizontalAlign } from "../typings";
+import { getAndroidShadowInset } from "../utils/toast-shadow";
 import { BlobPath } from "./BlobPath";
 import { ToastBody } from "./ToastBody";
 import { ToastHeader } from "./ToastHeader";
 import { ToastProgress } from "./ToastProgress";
+import { ToastShadow } from "./ToastShadow";
 
 const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
   memo(
@@ -18,6 +20,11 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
       const hasBodyContent = Boolean(
         props.toast.description || props.toast.action || props.toast.content,
       );
+      const shadowInset = props.androidShadow
+        ? getAndroidShadowInset(props.androidShadow)
+        : 0;
+      const shadowWidth = props.bodyWidth + shadowInset * 2;
+      const shadowHeight = props.renderHeight + shadowInset * 2;
 
       return (
         <View
@@ -26,6 +33,32 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
             { width: props.bodyWidth, height: props.renderHeight },
           ]}
         >
+          {props.androidShadow ? (
+            <View
+              pointerEvents="none"
+              style={[
+                styles.svgBg,
+                {
+                  top: -shadowInset,
+                  left: -shadowInset,
+                  width: shadowWidth,
+                  height: shadowHeight,
+                },
+              ]}
+            >
+              <Svg
+                width={shadowWidth}
+                height={shadowHeight}
+                viewBox={`${-shadowInset} ${-shadowInset} ${shadowWidth} ${shadowHeight}`}
+                fill="none"
+              >
+                <ToastShadow
+                  animatedProps={props.animatedPathProps}
+                  shadow={props.androidShadow}
+                />
+              </Svg>
+            </View>
+          ) : null}
           <Svg
             width={props.bodyWidth}
             height={props.renderHeight}

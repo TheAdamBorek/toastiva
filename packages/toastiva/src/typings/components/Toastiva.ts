@@ -8,6 +8,7 @@ import type {
 
 interface IToastivaProps {
   collapsedOffset: number;
+  defaultAndroidShadow?: ValueOf<IToastivaConfig, "androidShadow">;
   defaultAnimation?: ValueOf<IToastivaConfig, "animation">;
   defaultAnimationPreset?: ValueOf<IToastivaConfig, "animationPreset">;
   defaultBodyRadius?: number;

@@ -6,6 +6,8 @@ interface IBlobPathProps {
   fill: string;
   filter?: string;
   stroke?: string;
+  strokeLinejoin?: "miter" | "bevel" | "round";
+  strokeOpacity?: number;
   strokeWidth?: number;
   transform?: string;
 }

@@ -5,6 +5,7 @@ import type { WithSpringConfig } from "react-native-reanimated";
 import type { IToastIcon } from "../dummy-icons/Icons";
 import type { IToastAnimatedStylesResult } from "../styles/AnimatedStyles";
 import type {
+  IToastivaAndroidShadow,
   IToastivaData,
   TToastivaBodyLayout,
   TToastivaHorizontalAlign,
@@ -28,6 +29,7 @@ interface IToastCardMeasurements {
 
 interface IToastCardProps {
   Icon: ComponentType<IToastIcon>;
+  androidShadow?: Required<IToastivaAndroidShadow>;
   animated: IToastAnimatedStylesResult;
   morphSpringConfig?: WithSpringConfig;
   bodyLayout: TToastivaBodyLayout;

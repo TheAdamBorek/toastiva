@@ -1,5 +1,10 @@
 export { getStackAlign } from "./toast-align";
 export { getToastHeights, getToastWidths } from "./toast-layout";
+export {
+  getAndroidShadowInset,
+  getAndroidShadowLayers,
+  resolveAndroidShadow,
+} from "./toast-shadow";
 export { getBodyLayout, getBodyTextAlign, getToastMeta } from "./toast-meta";
 export {
   filterToastsForPosition,

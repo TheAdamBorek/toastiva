@@ -4,6 +4,7 @@ import type { WithSpringConfig } from "react-native-reanimated";
 import type { IToastIcon } from "../dummy-icons/Icons";
 import type { IToastAnimatedStylesResult } from "../styles/AnimatedStyles";
 import type {
+  IToastivaAndroidShadow,
   IToastivaData,
   TToastivaBodyLayout,
   TToastivaHorizontalAlign,
@@ -13,6 +14,7 @@ import type { TToastivaAnimatedViewStyle } from "./common";
 interface IToastSurfaceProps {
   Icon: ComponentType<IToastIcon>;
   actionStyle: TToastivaAnimatedViewStyle;
+  androidShadow?: Required<IToastivaAndroidShadow>;
   animatedPathProps: ValueOf<IToastAnimatedStylesResult, "animatedPathProps">;
   bodyLayout: TToastivaBodyLayout;
   bodyStyle: TToastivaAnimatedViewStyle;

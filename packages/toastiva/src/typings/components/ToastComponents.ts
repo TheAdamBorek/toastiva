@@ -8,5 +8,6 @@ export type * from "./Toastiva";
 export type * from "./ToastMeasure";
 export type * from "./ToastMorphSlot";
 export type * from "./ToastProgress";
+export type * from "./ToastShadow";
 export type * from "./ToastStack";
 export type * from "./ToastSurface";

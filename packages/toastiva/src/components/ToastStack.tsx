@@ -74,7 +74,8 @@ const ToastStack: React.MemoExoticComponent<React.FC<IToastStackProps>> = memo(
               gap={props.gap}
               swipeToDismiss={props.swipeToDismiss}
               swipeThreshold={props.swipeThreshold}
-              defaultAnimation={props.defaultAnimation}
+              defaultAndroidShadow={props.defaultAndroidShadow}
+            defaultAnimation={props.defaultAnimation}
               defaultAnimationPreset={props.defaultAnimationPreset}
               defaultBodyLayout={
                 props.defaultBodyLayout ?? ToastivaBodyLayout.Spread

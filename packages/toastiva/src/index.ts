@@ -11,6 +11,7 @@ export {
 } from "./typings";
 export type {
   IToastivaAction,
+  IToastivaAndroidShadow,
   IToastivaAnimationConfig,
   IToastivaAnimationSpringConfig,
   IToastivaCompactAnimationConfig,
@@ -27,6 +28,7 @@ export type {
   IToastivaStyleOverrides,
   IToastivaTheme,
   IToastivaTiming,
+  TToastivaAndroidShadow,
   TToastivaAnimationAxis,
   TToastivaAnimationPreset,
   TToastivaBodyLayout,

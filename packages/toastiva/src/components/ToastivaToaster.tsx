@@ -31,6 +31,7 @@ const ToastivaToaster: React.MemoExoticComponent<
 > =
   memo(
     ({
+      androidShadow,
       animation,
       animationPreset,
       position = ToastivaPosition.TopCenter,
@@ -120,6 +121,7 @@ const ToastivaToaster: React.MemoExoticComponent<
               swipeThreshold={swipeThreshold}
               swipeToDismiss={swipeToDismiss}
               toasts={slot.toasts}
+              defaultAndroidShadow={androidShadow}
               defaultAnimation={animation}
               defaultAnimationPreset={animationPreset}
               defaultBodyLayout={bodyLayout}
@@ -166,6 +168,7 @@ const ToastivaToaster: React.MemoExoticComponent<
               swipeThreshold={swipeThreshold}
               swipeToDismiss={swipeToDismiss}
               toasts={slot.toasts}
+              defaultAndroidShadow={androidShadow}
               defaultAnimation={animation}
               defaultAnimationPreset={animationPreset}
               defaultBodyLayout={bodyLayout}
