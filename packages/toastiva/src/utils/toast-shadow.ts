@@ -5,14 +5,15 @@ import type {
 } from "../typings";
 
 const DEFAULT_ANDROID_SHADOW: Required<IToastivaAndroidShadow> = {
-  color: "#000",
+  color: "#152b3b",
+  layers: 20,
   offsetX: 0,
   offsetY: 12,
-  opacity: 0.28,
+  opacity: 0.36,
   radius: 28,
 };
 
-const ANDROID_SHADOW_LAYERS = 8;
+const MAX_ANDROID_SHADOW_LAYERS = 64;
 
 function resolveAndroidShadow(
   shadow: TToastivaAndroidShadow | undefined,
@@ -22,6 +23,7 @@ function resolveAndroidShadow(
 
   return {
     color: options.color ?? DEFAULT_ANDROID_SHADOW.color,
+    layers: options.layers ?? DEFAULT_ANDROID_SHADOW.layers,
     offsetX: options.offsetX ?? DEFAULT_ANDROID_SHADOW.offsetX,
     offsetY: options.offsetY ?? DEFAULT_ANDROID_SHADOW.offsetY,
     opacity: options.opacity ?? DEFAULT_ANDROID_SHADOW.opacity,
@@ -32,24 +34,23 @@ function resolveAndroidShadow(
 /**
  * Fakes a blurred shadow with rings stroked along the toast outline, so it
  * follows the morph without a `filter`, which stops redrawing animated
- * content on Android. Each ring adds the same opacity, and the radii are
- * spaced so the summed opacity fades out quadratically over `radius`.
- * The surface covers the inner half of each ring. Rings move by at most
- * their own reach, so the offset never opens a gap under the surface edge.
+ * content on Android. The surface covers the inner half of each ring.
+ *
+ * Every ring adds the same opacity, the smallest step there is for a given
+ * ring count, and the ring radii follow a gaussian falloff: dense near the
+ * edge, sparse in the tail. Rings move by at most their own reach, so the
+ * offset never opens a gap under the surface edge.
  */
 function getAndroidShadowLayers(shadow: Required<IToastivaAndroidShadow>) {
-  const layerOpacity =
-    1 -
-    Math.pow(
-      1 - Math.min(1, Math.max(0, shadow.opacity)),
-      1 / ANDROID_SHADOW_LAYERS,
-    );
+  const count = getLayerCount(shadow.layers);
+  const opacity = Math.min(1, Math.max(0, shadow.opacity));
+  const layerOpacity = 1 - Math.pow(1 - opacity, 1 / count);
+  const sigma = Math.max(shadow.radius, 0) / 2;
   const offset = Math.hypot(shadow.offsetX, shadow.offsetY);
   const offsetScale = 1 / Math.max(shadow.radius, offset, 1);
 
-  return Array.from({ length: ANDROID_SHADOW_LAYERS }, (_, index) => {
-    const reach =
-      shadow.radius * (1 - Math.sqrt(index / ANDROID_SHADOW_LAYERS));
+  return Array.from({ length: count }, (_, index) => {
+    const reach = sigma * Math.sqrt(-Math.log((index + 0.5) / count));
     return {
       opacity: layerOpacity,
       strokeWidth: reach * 2,
@@ -57,6 +58,20 @@ function getAndroidShadowLayers(shadow: Required<IToastivaAndroidShadow>) {
       y: shadow.offsetY * reach * offsetScale,
     };
   });
+}
+
+/**
+ * Opacity of the shadow at the top and bottom edges of the surface, relative
+ * to the stronger one. A drop shadow offset downwards is lighter at the top,
+ * as the top edge sits further out in the blurred falloff.
+ */
+function getAndroidShadowEdgeOpacity(shadow: Required<IToastivaAndroidShadow>) {
+  const sigma = Math.max(shadow.radius / 2, 1);
+  const top = normalCdf(-shadow.offsetY / sigma);
+  const bottom = normalCdf(shadow.offsetY / sigma);
+  const strongest = Math.max(top, bottom);
+
+  return { bottom: bottom / strongest, top: top / strongest };
 }
 
 function getAndroidShadowInset(shadow: Required<IToastivaAndroidShadow>) {
@@ -68,4 +83,30 @@ function getAndroidShadowInset(shadow: Required<IToastivaAndroidShadow>) {
   );
 }
 
-export { getAndroidShadowInset, getAndroidShadowLayers, resolveAndroidShadow };
+function getLayerCount(layers: number) {
+  return Math.min(
+    MAX_ANDROID_SHADOW_LAYERS,
+    Math.max(1, Math.round(layers) || 1),
+  );
+}
+
+// Abramowitz and Stegun 7.1.26, accurate to about 1e-7.
+function normalCdf(z: number) {
+  const x = Math.abs(z) / Math.SQRT2;
+  const t = 1 / (1 + 0.3275911 * x);
+  const poly =
+    t *
+    (0.254829592 +
+      t *
+        (-0.284496736 +
+          t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
+  const erf = 1 - poly * Math.exp(-x * x);
+  return z < 0 ? (1 - erf) / 2 : (1 + erf) / 2;
+}
+
+export {
+  getAndroidShadowEdgeOpacity,
+  getAndroidShadowInset,
+  getAndroidShadowLayers,
+  resolveAndroidShadow,
+};

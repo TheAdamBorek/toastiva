@@ -121,6 +121,7 @@ interface IToastivaAnimationConfig {
 
 interface IToastivaAndroidShadow {
   color?: string;
+  layers?: number;
   offsetX?: number;
   offsetY?: number;
   opacity?: number;

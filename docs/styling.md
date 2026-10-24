@@ -64,19 +64,18 @@ Android uses the React Native `filter: [{ blur }]` style prop for the morph head
 
 ## Shadow on Android
 
-Android draws the toast shadow as soft rings along the surface outline, so it follows the morph and the header tab. It is on by default. iOS and web keep their native shadows.
+Android draws the toast shadow as soft rings along the surface outline, so it follows the morph and the header tab. It is on by default and looks like `drop-shadow(0px 12px 28px rgba(21,43,59,0.45))`. iOS and web keep their native shadows.
 
 ```tsx
-<ToastivaProvider
-  androidShadow={{ color: "#152b3b", opacity: 0.36, offsetY: 12, radius: 28 }}
->
+<ToastivaProvider androidShadow={{ color: "#000", opacity: 0.3 }}>
 ```
 
 <table>
-  <tr><td><code>color</code></td><td>Shadow color. Defaults to <code>"#000"</code>.</td></tr>
-  <tr><td><code>opacity</code></td><td>Opacity at the surface edge. Defaults to <code>0.28</code>.</td></tr>
-  <tr><td><code>offsetX</code>, <code>offsetY</code></td><td>Offset in dp. Default to <code>0</code> and <code>12</code>.</td></tr>
+  <tr><td><code>color</code></td><td>Shadow color. Defaults to <code>"#152b3b"</code>.</td></tr>
+  <tr><td><code>opacity</code></td><td>Opacity at the surface edge the shadow falls towards. Defaults to <code>0.36</code>.</td></tr>
+  <tr><td><code>offsetX</code>, <code>offsetY</code></td><td>Offset in dp. Default to <code>0</code> and <code>12</code>. A downward offset also lightens the shadow above the surface.</td></tr>
   <tr><td><code>radius</code></td><td>Distance in dp over which the shadow fades out. Defaults to <code>28</code>.</td></tr>
+  <tr><td><code>layers</code></td><td>Number of rings. More rings fade more smoothly but cost more per animation frame. Defaults to <code>20</code>.</td></tr>
 </table>
 
 Pass `androidShadow={false}` to turn it off. Works globally on `ToastivaProvider` or per toast. The shadow assumes an opaque `fill`: a translucent surface shows the inner half of the rings.
