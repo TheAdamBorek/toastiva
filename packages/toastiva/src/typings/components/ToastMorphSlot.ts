@@ -19,6 +19,7 @@ interface IToastMorphSlotProps {
   defaultIOSBlurTint: ValueOf<IToastivaConfig, "iosBlurTint">;
   defaultSpringConfig: ValueOf<IToastivaConfig, "springConfig">;
   defaultStroke: ValueOf<IToastivaConfig, "stroke">;
+  defaultStrokeWidth: ValueOf<IToastivaConfig, "strokeWidth">;
   defaultStyles: ValueOf<IToastivaConfig, "styles">;
   heightMap: Map<string, number>;
   horizontalInset: number;

@@ -1,5 +1,6 @@
 import { BODY_PADDING_BOTTOM, PH } from "../constants";
 import { getBodyRevealProgress } from "../math/toast-body+content-math";
+import { getMorphContentVisibility } from "../morph";
 import type { IUseToastAnimatedStylesParams } from "../typings";
 import { useAnimatedStyle } from "react-native-reanimated";
 
@@ -25,8 +26,12 @@ const useAnimatedToastBodyStyles = <T extends IUseToastAnimatedStylesParams>(
         ? expandedHeight - PH
         : 0;
 
+    const visibility = noHeader
+      ? 1
+      : getMorphContentVisibility(expandedBodyHeight * t, expandedBodyHeight);
+
     return {
-      opacity: bodyOpacity * revealT,
+      opacity: bodyOpacity * revealT * visibility,
       height: expandedBodyHeight * revealT,
       overflow: "hidden" as const,
       paddingTop: 6 * revealT,

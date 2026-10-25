@@ -1,8 +1,4 @@
-import type {
-  IToastivaData,
-  IToastivaPromiseData,
-  TToastTimingSource,
-} from "../typings";
+import type { IToastivaPromiseData, TToastTimingSource } from "../typings";
 
 const DEFAULT_COLLAPSE_DURATION = 900;
 const DEFAULT_EXPAND_DURATION = 900;
@@ -43,17 +39,6 @@ function getDisplayDuration(source: TToastTimingSource) {
   );
 }
 
-function getProgressDuration(
-  toast: IToastivaData,
-  hasBody: boolean,
-  shouldAutoExpand: boolean,
-) {
-  const baseDuration = getDisplayDuration(toast);
-  return (
-    baseDuration + (hasBody && shouldAutoExpand ? getExpandDuration(toast) : 0)
-  );
-}
-
 function getPromiseSettledDuration<TResult, TError = unknown>(
   data: IToastivaPromiseData<TResult, TError>,
 ) {
@@ -68,6 +53,5 @@ export {
   getCollapseSettleDuration,
   getDisplayDuration,
   getExpandDuration,
-  getProgressDuration,
   getPromiseSettledDuration,
 };

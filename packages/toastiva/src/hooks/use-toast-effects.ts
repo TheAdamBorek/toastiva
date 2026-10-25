@@ -13,7 +13,6 @@ import {
   getBodyFadeDuration,
   getCollapseDuration,
   getExpandDuration,
-  getProgressDuration,
 } from "../utils/toast-timing";
 
 function useToastEffects(params: IUseToastEffectsParams) {
@@ -34,7 +33,6 @@ function useToastEffects(params: IUseToastEffectsParams) {
     morphMode = false,
     pillWidth,
     springConfig,
-    shouldAutoExpand,
     shouldShowExpandedBody,
     stackDepth,
     toast,
@@ -332,13 +330,6 @@ function useToastEffects(params: IUseToastEffectsParams) {
     stackDepth,
     values,
   ]);
-
-  useEffect(() => {
-    values.progress.value = withTiming(1, {
-      duration: getProgressDuration(toast, hasBody, shouldAutoExpand),
-      easing: Easing.linear,
-    });
-  }, [hasBody, shouldAutoExpand, toast, values.progress]);
 }
 
 function getSmoothCollapseDuration(duration: number) {

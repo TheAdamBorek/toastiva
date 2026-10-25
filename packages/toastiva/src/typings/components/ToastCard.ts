@@ -51,6 +51,7 @@ interface IToastCardProps {
   showProgress: boolean;
   stackAlign: TToastivaHorizontalAlign;
   stroke: string;
+  strokeWidth: number;
   styleOverrides?: ValueOf<IToastivaData, "styles">;
   surfaceFill: string;
   toast: IToastivaData;

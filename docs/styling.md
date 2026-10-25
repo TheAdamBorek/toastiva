@@ -4,7 +4,7 @@
 
 ---
 
-Use `fill`, `stroke`, and `styles` globally on `ToastivaProvider`, or per toast on any `toastiva.*` call.
+Use `fill`, `stroke`, `strokeWidth`, and `styles` globally on `ToastivaProvider`, or per toast on any `toastiva.*` call.
 
 ## Global theme
 
@@ -12,6 +12,7 @@ Use `fill`, `stroke`, and `styles` globally on `ToastivaProvider`, or per toast 
 <ToastivaProvider
   fill="#171717"
   stroke="rgba(255,255,255,0.12)"
+  strokeWidth={1}
   iosBlurTint="dark"
   styles={{
     title: { color: "#fff" },

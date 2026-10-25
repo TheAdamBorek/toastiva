@@ -16,7 +16,6 @@ export {
   getCollapseSettleDuration,
   getDisplayDuration,
   getExpandDuration,
-  getProgressDuration,
   getPromiseSettledDuration,
 } from "./toast-timing";
 export {
