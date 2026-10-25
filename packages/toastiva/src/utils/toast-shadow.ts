@@ -11,6 +11,7 @@ const DEFAULT_ANDROID_SHADOW: Required<IToastivaAndroidShadow> = {
   offsetY: 12,
   opacity: 0.36,
   radius: 28,
+  whileAnimating: false,
 };
 
 const MAX_ANDROID_SHADOW_LAYERS = 64;
@@ -28,6 +29,8 @@ function resolveAndroidShadow(
     offsetY: options.offsetY ?? DEFAULT_ANDROID_SHADOW.offsetY,
     opacity: options.opacity ?? DEFAULT_ANDROID_SHADOW.opacity,
     radius: options.radius ?? DEFAULT_ANDROID_SHADOW.radius,
+    whileAnimating:
+      options.whileAnimating ?? DEFAULT_ANDROID_SHADOW.whileAnimating,
   };
 }
 

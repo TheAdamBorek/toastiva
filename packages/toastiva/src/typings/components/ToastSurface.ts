@@ -34,6 +34,8 @@ interface IToastSurfaceProps {
   onAction: () => void;
   progressStyle: TToastivaAnimatedViewStyle;
   renderHeight: number;
+  shadowPathProps: ValueOf<IToastAnimatedStylesResult, "shadowPathProps">;
+  shadowStyle: TToastivaAnimatedViewStyle;
   showBody: boolean;
   showProgress: boolean;
   stroke: string;

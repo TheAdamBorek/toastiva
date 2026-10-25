@@ -381,6 +381,9 @@ function useToastCard(props: IToastivaProps) {
 
   const effectivePillWidth = noHeader ? widths.bodyWidth : widths.pillWidth;
   const effectiveCollapsedHeight = noHeader ? PH : heights.collapsedCardHeight;
+  const androidShadow = resolveAndroidShadow(
+    props.toast.androidShadow ?? props.defaultAndroidShadow,
+  );
   const animated = useToastAnimatedStyles({
     animationConfig,
     bodyWidth: widths.bodyWidth,
@@ -395,6 +398,7 @@ function useToastCard(props: IToastivaProps) {
     noHeader,
     pillWidth: effectivePillWidth,
     renderHeight: heights.renderHeight,
+    shadowAtRest: Boolean(androidShadow && !androidShadow.whileAnimating),
     totalCount: props.totalCount,
     values,
   });
@@ -427,9 +431,7 @@ function useToastCard(props: IToastivaProps) {
 
   return {
     Icon: iconMap[props.toast.type],
-    androidShadow: resolveAndroidShadow(
-      props.toast.androidShadow ?? props.defaultAndroidShadow,
-    ),
+    androidShadow,
     animated,
     bodyLayout,
     color: theme.colors[props.toast.type],

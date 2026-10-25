@@ -34,7 +34,7 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
           ]}
         >
           {props.androidShadow ? (
-            <View
+            <Animated.View
               pointerEvents="none"
               style={[
                 styles.svgBg,
@@ -44,6 +44,7 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
                   width: shadowWidth,
                   height: shadowHeight,
                 },
+                props.androidShadow.whileAnimating ? null : props.shadowStyle,
               ]}
             >
               <Svg
@@ -53,11 +54,15 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
                 fill="none"
               >
                 <ToastShadow
-                  animatedProps={props.animatedPathProps}
+                  animatedProps={
+                    props.androidShadow.whileAnimating
+                      ? props.animatedPathProps
+                      : props.shadowPathProps
+                  }
                   shadow={props.androidShadow}
                 />
               </Svg>
-            </View>
+            </Animated.View>
           ) : null}
           <Svg
             width={props.bodyWidth}

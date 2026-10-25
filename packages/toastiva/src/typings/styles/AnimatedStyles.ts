@@ -17,6 +17,8 @@ interface IToastAnimatedStylesResult {
   descriptionStyle: TToastivaAnimatedViewStyle;
   headerMaxWidthStyle: TToastivaAnimatedViewStyle;
   progressStyle: TToastivaAnimatedViewStyle;
+  shadowPathProps: TToastivaAnimatedPathProps;
+  shadowStyle: TToastivaAnimatedViewStyle;
   shellStyle: TToastivaAnimatedViewStyle;
 }
 
@@ -34,6 +36,7 @@ interface IUseToastAnimatedStylesParams {
   noHeader?: boolean;
   pillWidth: number;
   renderHeight: number;
+  shadowAtRest?: boolean;
   totalCount: number;
   values: IToastSharedValue;
 }

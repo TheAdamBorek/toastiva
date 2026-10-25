@@ -126,6 +126,7 @@ interface IToastivaAndroidShadow {
   offsetY?: number;
   opacity?: number;
   radius?: number;
+  whileAnimating?: boolean;
 }
 
 interface IToastivaAction {

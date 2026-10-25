@@ -6,6 +6,7 @@ import { useAnimatedDescriptionStyle } from "./use-animated-description-styles";
 import { useAnimatedHeaderMaxWidthStyle } from "./use-animated-header-max-styles";
 import { useAnimatedPathProps } from "./use-animated-path-props";
 import { useAnimatedProgressStyle } from "./use-animated-progress-styles";
+import { useAnimatedShadowProps } from "./use-animated-shadow-props";
 import { useAnimatedShellStyle } from "./use-animated-shell-styles";
 import { useAnimatedToastBodyStyles } from "./use-animated-toast-body-styles";
 
@@ -30,6 +31,8 @@ function useToastAnimatedStyles<T extends IUseToastAnimatedStylesParams>(
     useAnimatedHeaderMaxWidthStyle<IUseToastAnimatedStylesParams>(params);
   const progressStyle =
     useAnimatedProgressStyle<IUseToastAnimatedStylesParams>(params);
+  const { shadowPathProps, shadowStyle } =
+    useAnimatedShadowProps<IUseToastAnimatedStylesParams>(params);
 
   return {
     animatedPathProps,
@@ -38,6 +41,8 @@ function useToastAnimatedStyles<T extends IUseToastAnimatedStylesParams>(
     contentStyle,
     headerMaxWidthStyle,
     progressStyle,
+    shadowPathProps,
+    shadowStyle,
     cardStyle,
     bodyStyle,
     shellStyle,
