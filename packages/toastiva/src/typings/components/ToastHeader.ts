@@ -8,6 +8,7 @@ import type { TToastivaAnimatedViewStyle } from "../styles/AnimatedStyles";
 import type {
   IToastivaData,
   TToastivaHorizontalAlign,
+  TToastivaTitleTransition,
   TToastivaType,
 } from "../toast";
 import type { TToastivaLayoutHandler } from "./common";
@@ -16,6 +17,7 @@ interface IToastHeaderProps {
   align: TToastivaHorizontalAlign;
   color: string;
   disableIOSBlur?: boolean;
+  titleTransition?: TToastivaTitleTransition;
   headerContent?: ReactNode;
   Icon: ComponentType<IToastIcon>;
   icon?: ValueOf<IToastivaData, "icon">;

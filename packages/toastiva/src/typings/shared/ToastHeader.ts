@@ -3,7 +3,11 @@ import type { ComponentType, ReactNode } from "react";
 import type { StyleProp, TextStyle } from "react-native";
 import type { WithSpringConfig } from "react-native-reanimated";
 import type { IToastIcon } from "../dummy-icons";
-import type { IToastivaData, TToastivaType } from "../toast";
+import type {
+  IToastivaData,
+  TToastivaTitleTransition,
+  TToastivaType,
+} from "../toast";
 
 interface IHeaderLayer {
   key: string;
@@ -29,6 +33,7 @@ interface IHeaderLayerParams {
 }
 
 interface IUseToastHeaderMorphParams extends IHeaderLayerParams {
+  titleTransition?: TToastivaTitleTransition;
   measure?: boolean;
   morphSpringConfig?: WithSpringConfig;
 }

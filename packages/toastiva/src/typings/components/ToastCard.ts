@@ -8,6 +8,7 @@ import type {
   IToastivaData,
   TToastivaBodyLayout,
   TToastivaHorizontalAlign,
+  TToastivaTitleTransition,
 } from "../toast";
 import type { TToastivaLayoutHandler } from "./common";
 
@@ -33,6 +34,7 @@ interface IToastCardProps {
   bodyLayout: TToastivaBodyLayout;
   color: string;
   disableIOSBlur: boolean;
+  titleTransition: TToastivaTitleTransition;
   expanded: boolean;
   gesture: GestureType;
   headerAlign: TToastivaHorizontalAlign;

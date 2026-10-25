@@ -16,11 +16,14 @@ const HEADER_LAYER_MAX_BLUR_PX = 2.5;
 function useToastHeaderAnimatedStyles(
   currentTitleProgress: SharedValue<number>,
   prevTitleProgress: SharedValue<number>,
+  blurTitle = true,
 ) {
+  const useFilterBlur = USE_FILTER_BLUR && blurTitle;
+
   const currentHeaderStyle = useAnimatedStyle(() => {
     const progress = currentTitleProgress.value;
     const opacity = interpolate(progress, [0, 1], [0, 1], Extrapolation.CLAMP);
-    if (!USE_FILTER_BLUR) return { opacity };
+    if (!useFilterBlur) return { opacity };
     return {
       opacity,
       filter: [
@@ -34,12 +37,12 @@ function useToastHeaderAnimatedStyles(
         },
       ],
     };
-  }, []);
+  }, [useFilterBlur]);
 
   const prevHeaderStyle = useAnimatedStyle(() => {
     const progress = prevTitleProgress.value;
     const opacity = interpolate(progress, [0, 1], [1, 0], Extrapolation.CLAMP);
-    if (!USE_FILTER_BLUR) return { opacity };
+    if (!useFilterBlur) return { opacity };
     return {
       opacity,
       filter: [
@@ -53,7 +56,7 @@ function useToastHeaderAnimatedStyles(
         },
       ],
     };
-  }, []);
+  }, [useFilterBlur]);
 
   const animatedBlurProps = useAnimatedProps<
     Required<Pick<BlurViewProps, "intensity">>

@@ -14,6 +14,7 @@ import {
 } from "react-native-reanimated";
 import { scheduleOnRN, scheduleOnUI } from "react-native-worklets";
 import type { IUseToastHeaderMorphParams } from "../typings";
+import { ToastivaTitleTransition } from "../typings";
 import {
   createHeaderLayer,
   HEADER_LAYER_CLEAR_MS,
@@ -25,6 +26,7 @@ import { useToastHeaderAnimatedStyles } from "./use-toast-header-animated-styles
 function useToastHeaderMorph(params: IUseToastHeaderMorphParams) {
   const {
     color,
+    titleTransition = ToastivaTitleTransition.Blur,
     headerContent,
     Icon,
     icon,
@@ -58,6 +60,7 @@ function useToastHeaderMorph(params: IUseToastHeaderMorphParams) {
   const animatedStyles = useToastHeaderAnimatedStyles(
     currentTitleProgress,
     prevTitleProgress,
+    titleTransition === ToastivaTitleTransition.Blur,
   );
 
   const clearPrevLayer = useCallback(
@@ -119,6 +122,28 @@ function useToastHeaderMorph(params: IUseToastHeaderMorphParams) {
 
     if (prevHeaderKeyRef.current === headerKey) {
       setHeaderLayer((state) => ({ ...state, current: nextHeaderLayer }));
+      return;
+    }
+
+    if (titleTransition === ToastivaTitleTransition.None) {
+      prevHeaderKeyRef.current = headerKey;
+      if (isMorphingRef.current) {
+        morphVersionRef.current += 1;
+        cancelAnimation(currentTitleProgress);
+        cancelAnimation(prevTitleProgress);
+        if (titleMorphFrameRef.current !== null) {
+          cancelAnimationFrame(titleMorphFrameRef.current);
+          titleMorphFrameRef.current = null;
+        }
+        currentTitleProgress.value = 1;
+        prevTitleProgress.value = 1;
+        isMorphingRef.current = false;
+        if (prevClearTimerRef.current) {
+          clearTimeout(prevClearTimerRef.current);
+          prevClearTimerRef.current = null;
+        }
+      }
+      setHeaderLayer({ current: nextHeaderLayer, prev: null });
       return;
     }
 
@@ -186,6 +211,7 @@ function useToastHeaderMorph(params: IUseToastHeaderMorphParams) {
     showIcon,
     showIconBadge,
     title,
+    titleTransition,
     type,
     currentTitleProgress,
     prevTitleProgress,

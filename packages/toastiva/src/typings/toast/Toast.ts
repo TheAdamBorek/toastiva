@@ -45,6 +45,12 @@ enum ToastivaType {
   Info = "info",
 }
 
+enum ToastivaTitleTransition {
+  Blur = "blur",
+  Fade = "fade",
+  None = "none",
+}
+
 enum ToastivaVerticalPosition {
   Top = "top",
   Bottom = "bottom",
@@ -52,6 +58,7 @@ enum ToastivaVerticalPosition {
 
 type TToastivaPosition = `${ToastivaPosition}`;
 type TToastivaPositionInput = TToastivaPosition | TToastivaVerticalPosition;
+type TToastivaTitleTransition = `${ToastivaTitleTransition}`;
 type TToastivaType = `${ToastivaType}`;
 type TToastivaMode = `${ToastivaMode}`;
 type TToastivaAnimationAxis = "none" | "x" | "y";
@@ -188,6 +195,7 @@ interface IToastivaOptions {
   styles?: IToastivaStyleOverrides;
   timing?: IToastivaTiming;
   title: string;
+  titleTransition?: TToastivaTitleTransition;
   type?: TToastivaType;
 }
 interface IResolvedToastTheme {
@@ -236,6 +244,7 @@ interface IToastivaData {
   styles?: IToastivaStyleOverrides;
   timing?: IToastivaTiming;
   title: string;
+  titleTransition?: TToastivaTitleTransition;
   timerVersion?: number;
   type: TToastivaType;
 }
@@ -296,6 +305,7 @@ interface IToastivaConfig {
   swipeThreshold?: number;
   swipeToDismiss?: boolean;
   theme?: IToastivaTheme;
+  titleTransition?: TToastivaTitleTransition;
   visibleToasts?: number;
 }
 
@@ -309,6 +319,7 @@ export {
   ToastivaHorizontalAlign,
   ToastivaMode,
   ToastivaPosition,
+  ToastivaTitleTransition,
   ToastivaType,
   ToastivaVerticalPosition,
 };
@@ -343,6 +354,7 @@ export type {
   TToastivaPromiseDescription,
   TToastivaPromiseMessage,
   TToastivaSpringConfig,
+  TToastivaTitleTransition,
   TToastivaType,
   TToastivaVerticalPosition,
 };

@@ -14,6 +14,7 @@ interface IToastivaProps {
   defaultCornerSmoothing?: number;
   defaultBodyLayout: TToastivaBodyLayout;
   defaultDisableIOSBlur?: ValueOf<IToastivaConfig, "disableIOSBlur">;
+  defaultTitleTransition?: ValueOf<IToastivaConfig, "titleTransition">;
   defaultExpandedHeight?: ValueOf<IToastivaConfig, "expandedHeight">;
   defaultExpandedWidth?: number;
   defaultFill?: ValueOf<IToastivaConfig, "fill">;

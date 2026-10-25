@@ -34,6 +34,7 @@ export {
   ToastivaHorizontalAlign,
   ToastivaMode,
   ToastivaPosition,
+  ToastivaTitleTransition,
   ToastivaType,
   ToastivaVerticalPosition,
 } from "./toast";
@@ -67,6 +68,7 @@ export type {
   TToastivaPromiseDescription,
   TToastivaPromiseMessage,
   TToastivaSpringConfig,
+  TToastivaTitleTransition,
   TToastivaType,
   TToastivaVerticalPosition,
 } from "./toast";

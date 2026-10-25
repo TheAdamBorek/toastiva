@@ -13,6 +13,7 @@ interface IToastMorphSlotProps {
   defaultBodyRadius: ValueOf<IToastivaConfig, "bodyRadius">;
   defaultCornerSmoothing: ValueOf<IToastivaConfig, "cornerSmoothing">;
   defaultDisableIOSBlur: ValueOf<IToastivaConfig, "disableIOSBlur">;
+  defaultTitleTransition: ValueOf<IToastivaConfig, "titleTransition">;
   defaultExpandedHeight: ValueOf<IToastivaConfig, "expandedHeight">;
   defaultExpandedWidth: ValueOf<IToastivaConfig, "expandedWidth">;
   defaultFill: ValueOf<IToastivaConfig, "fill">;

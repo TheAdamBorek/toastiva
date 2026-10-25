@@ -56,6 +56,18 @@ toastiva.success("Saved", {
 
 Both options work globally on `ToastivaProvider` or per toast. iOS uses `expo-blur` under the hood.
 
+## Title transition
+
+`titleTransition` sets how a new title replaces the old one:
+
+<table>
+  <tr><td><code>"blur"</code></td><td>Default. The old title fades out and the new one fades in, both blurred: a <code>filter</code> blur on Android and web, the blur layer on iOS.</td></tr>
+  <tr><td><code>"fade"</code></td><td>The same crossfade, without blur.</td></tr>
+  <tr><td><code>"none"</code></td><td>The new title replaces the old one at once. If the new title has a different width, the pill still resizes.</td></tr>
+</table>
+
+`"fade"` and `"none"` suit toasts whose title changes often, such as a timer. Works globally on `ToastivaProvider` or per toast.
+
 ## Blur on Android
 
 Android uses the React Native `filter: [{ blur }]` style prop for the morph header.
