@@ -49,6 +49,7 @@ function addToast<T extends IToastivaOptions>(options: Partial<T>): string {
     showProgress: options.showProgress,
     springConfig: options.springConfig,
     stroke: options.stroke,
+    strokeWidth: options.strokeWidth,
     styles: options.styles,
     content: options.content,
     headerContent: options.headerContent,

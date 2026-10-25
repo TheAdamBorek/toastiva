@@ -72,6 +72,7 @@ function createPromiseToast<TResult, TError = unknown>(
     showTimestamp: data.showTimestamp,
     springConfig: data.springConfig,
     stroke: data.stroke,
+    strokeWidth: data.strokeWidth,
     styles: data.styles,
     timing: loadingTiming,
     title: data.loading,
