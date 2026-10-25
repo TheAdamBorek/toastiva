@@ -61,6 +61,7 @@ const ToastCard: React.MemoExoticComponent<React.FC<IToastCardProps>> = memo(
                   contentStyle={props.animated.contentStyle}
                   descriptionStyle={props.animated.descriptionStyle}
                   disableIOSBlur={props.disableIOSBlur}
+                  titleTransition={props.titleTransition}
                   meta={props.meta}
                   iosBlurTint={props.iosBlurTint}
                   mirrored={mirrored}

@@ -52,6 +52,7 @@ function createPromiseToast<TResult, TError = unknown>(
     cornerSmoothing: data.cornerSmoothing,
     description: data.description?.loading,
     disableIOSBlur: data.disableIOSBlur,
+    titleTransition: data.titleTransition,
     dismissible: false,
     duration: PROMISE_PENDING_DURATION,
     expandedHeight: data.expandedHeight,

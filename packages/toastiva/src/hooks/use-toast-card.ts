@@ -15,7 +15,11 @@ import type {
   TToastivaHorizontalAlign,
   TToastivaSpringConfig,
 } from "../typings";
-import { ToastivaBodyLayout, ToastivaHorizontalAlign } from "../typings";
+import {
+  ToastivaBodyLayout,
+  ToastivaHorizontalAlign,
+  ToastivaTitleTransition,
+} from "../typings";
 import { getStackAlign } from "../utils/toast-align";
 import { resolveToastAnimationConfig } from "../utils/toast-animation";
 import { getToastHeights, getToastWidths } from "../utils/toast-layout";
@@ -432,6 +436,10 @@ function useToastCard(props: IToastivaProps) {
     color: theme.colors[props.toast.type],
     disableIOSBlur:
       props.toast.disableIOSBlur ?? props.defaultDisableIOSBlur ?? false,
+    titleTransition:
+      props.toast.titleTransition ??
+      props.defaultTitleTransition ??
+      ToastivaTitleTransition.Blur,
     dismiss,
     gesture: useToastGesture({
       isTop,

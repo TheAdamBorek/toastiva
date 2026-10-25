@@ -133,6 +133,7 @@ const ToastMorphSlot: React.MemoExoticComponent<
             defaultBodyRadius={props.defaultBodyRadius}
             defaultCornerSmoothing={props.defaultCornerSmoothing}
             defaultDisableIOSBlur={props.defaultDisableIOSBlur}
+            defaultTitleTransition={props.defaultTitleTransition}
             defaultExpandedHeight={props.defaultExpandedHeight}
             defaultExpandedWidth={props.defaultExpandedWidth}
             defaultFill={props.defaultFill}

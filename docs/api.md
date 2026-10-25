@@ -60,6 +60,7 @@ Common props:
   <tr><td><code>strokeWidth</code></td><td>Surface stroke width in dp. Defaults to <code>0.6</code>.</td></tr>
   <tr><td><code>iosBlurTint</code></td><td>iOS blur tint — <code>"light"</code>, <code>"dark"</code>, etc.</td></tr>
   <tr><td><code>disableIOSBlur</code></td><td>Disable the iOS blur layer.</td></tr>
+  <tr><td><code>titleTransition</code></td><td>How a new title replaces the old one &mdash; <code>"blur"</code> (default), <code>"fade"</code> or <code>"none"</code>.</td></tr>
   <tr><td><code>styles</code></td><td>Style overrides — see <a href="./styling.md">Styling</a>.</td></tr>
   <tr><td><code>animation</code></td><td>Animation config — see <a href="./animations.md">Animations</a>.</td></tr>
 </table>

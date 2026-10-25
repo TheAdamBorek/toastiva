@@ -7,6 +7,7 @@ import type {
   IToastivaData,
   TToastivaBodyLayout,
   TToastivaHorizontalAlign,
+  TToastivaTitleTransition,
 } from "../toast";
 import type { TToastivaAnimatedViewStyle } from "./common";
 
@@ -22,6 +23,7 @@ interface IToastSurfaceProps {
   contentStyle: TToastivaAnimatedViewStyle;
   descriptionStyle: TToastivaAnimatedViewStyle;
   disableIOSBlur: boolean;
+  titleTransition: TToastivaTitleTransition;
   headerAlign: TToastivaHorizontalAlign;
   headerMaxWidthStyle: TToastivaAnimatedViewStyle;
   iosBlurTint?: ValueOf<IToastivaData, "iosBlurTint">;

@@ -28,6 +28,7 @@ function addToast<T extends IToastivaOptions>(options: Partial<T>): string {
     bodyRadius: options.bodyRadius,
     cornerSmoothing: options.cornerSmoothing,
     disableIOSBlur: options.disableIOSBlur,
+    titleTransition: options.titleTransition,
     expandedHeight: options.expandedHeight,
     expandedWidth: options.expandedWidth,
     horizontalInset: options.horizontalInset,

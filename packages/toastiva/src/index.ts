@@ -6,6 +6,7 @@ export {
   ToastivaBodyLayout,
   ToastivaMode,
   ToastivaPosition,
+  ToastivaTitleTransition,
   ToastivaType,
   ToastivaVerticalPosition,
 } from "./typings";
@@ -35,6 +36,7 @@ export type {
   TToastivaPromiseDescription,
   TToastivaPromiseMessage,
   TToastivaSpringConfig,
+  TToastivaTitleTransition,
   TToastivaType,
   TToastivaVerticalPosition,
 } from "./typings";

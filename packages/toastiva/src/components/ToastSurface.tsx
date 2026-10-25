@@ -72,6 +72,7 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
                   maxWidthStyle={props.headerMaxWidthStyle}
                   morphSpringConfig={props.morphSpringConfig}
                   disableIOSBlur={props.disableIOSBlur}
+                  titleTransition={props.titleTransition}
                   showIcon={props.toast.showIcon}
                   showIconBadge={props.toast.showIconBadge}
                   styleOverrides={props.styleOverrides}

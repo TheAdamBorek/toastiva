@@ -5,7 +5,7 @@ import Animated from "react-native-reanimated";
 import { useToastHeaderMorph } from "../hooks/use-toast-header-morph";
 import { styles } from "../styles/toast.styles";
 import type { IToastHeaderProps } from "../typings";
-import { ToastivaHorizontalAlign } from "../typings";
+import { ToastivaHorizontalAlign, ToastivaTitleTransition } from "../typings";
 import {
   createHeaderLayer,
   getHeaderTitleStyle,
@@ -35,6 +35,7 @@ const ToastHeader: React.NamedExoticComponent<IToastHeaderProps> = memo(
     const liveStyle = [styles.headerClip, ...baseStyle, props.maxWidthStyle];
     const morph = useToastHeaderMorph({
       color: props.color,
+      titleTransition: props.titleTransition,
       headerContent: props.headerContent,
       Icon: props.Icon,
       icon: props.icon,
@@ -110,7 +111,10 @@ const ToastHeader: React.NamedExoticComponent<IToastHeaderProps> = memo(
         >
           {renderHeaderLayer(morph.headerLayer.current)}
         </Animated.View>
-        {Platform.OS === "ios" && !props.disableIOSBlur ? (
+        {Platform.OS === "ios" &&
+        !props.disableIOSBlur &&
+        (props.titleTransition ?? ToastivaTitleTransition.Blur) ===
+          ToastivaTitleTransition.Blur ? (
           <AnimatedBlurView
             animatedProps={morph.animatedBlurProps}
             pointerEvents="none"
