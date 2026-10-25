@@ -39,23 +39,24 @@ function resolveAndroidShadow(
  * follows the morph without a `filter`, which stops redrawing animated
  * content on Android. The surface covers the inner half of each ring.
  *
- * Every ring adds the same opacity, the smallest step there is for a given
- * ring count, and the ring radii follow a gaussian falloff: dense near the
- * edge, sparse in the tail. Rings move by at most their own reach, so the
- * offset never opens a gap under the surface edge.
+ * Every ring raises the stacked opacity by the same step, the smallest step
+ * there is for a given ring count, and the ring radii follow a gaussian
+ * falloff: dense near the edge, sparse in the tail. Rings move by at most
+ * their own reach, so the offset never opens a gap under the surface edge.
  */
 function getAndroidShadowLayers(shadow: Required<IToastivaAndroidShadow>) {
   const count = getLayerCount(shadow.layers);
   const opacity = Math.min(1, Math.max(0, shadow.opacity));
-  const layerOpacity = 1 - Math.pow(1 - opacity, 1 / count);
   const sigma = Math.max(shadow.radius, 0) / 2;
   const offset = Math.hypot(shadow.offsetX, shadow.offsetY);
   const offsetScale = 1 / Math.max(shadow.radius, offset, 1);
 
   return Array.from({ length: count }, (_, index) => {
     const reach = sigma * Math.sqrt(-Math.log((index + 0.5) / count));
+    const below = (opacity * index) / count;
+    const above = (opacity * (index + 1)) / count;
     return {
-      opacity: layerOpacity,
+      opacity: (above - below) / (1 - below),
       strokeWidth: reach * 2,
       x: shadow.offsetX * reach * offsetScale,
       y: shadow.offsetY * reach * offsetScale,

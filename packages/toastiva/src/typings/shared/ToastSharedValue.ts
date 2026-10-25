@@ -1,5 +1,12 @@
 import type { SharedValue } from "react-native-reanimated";
 
+interface IToastShapeTarget {
+  bodyRadius: number;
+  bodyWidth: number;
+  expandedHeight: number;
+  pillWidth: number;
+}
+
 interface IToastSharedValue {
   actionProgress: SharedValue<number>;
   bodyWidth: SharedValue<number>;
@@ -14,6 +21,7 @@ interface IToastSharedValue {
   pillWidth: SharedValue<number>;
   progress: SharedValue<number>;
   removeProgress: SharedValue<number>;
+  shapeTarget: SharedValue<IToastShapeTarget>;
   shakeX: SharedValue<number>;
   shellHeight: SharedValue<number>;
   squishX: SharedValue<number>;
@@ -26,4 +34,4 @@ interface IToastSharedValue {
   swipeY: SharedValue<number>;
 }
 
-export type { IToastSharedValue };
+export type { IToastShapeTarget, IToastSharedValue };

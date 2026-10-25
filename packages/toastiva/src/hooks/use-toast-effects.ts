@@ -64,6 +64,12 @@ function useToastEffects(params: IUseToastEffectsParams) {
       values.bodyRadius.value = bodyRadius;
       values.collapsedHeight.value = collapsedCardHeight;
       values.expandedHeight.value = expandedHeight;
+      values.shapeTarget.value = {
+        bodyRadius,
+        bodyWidth,
+        expandedHeight,
+        pillWidth,
+      };
       dimensionsReady.current = true;
       if (isMeasured) {
         firstRealMeasureApplied.current = true;
@@ -84,6 +90,12 @@ function useToastEffects(params: IUseToastEffectsParams) {
       easing: Easing.out(Easing.cubic),
     };
 
+    values.shapeTarget.value = {
+      bodyRadius,
+      bodyWidth,
+      expandedHeight,
+      pillWidth,
+    };
     values.bodyWidth.value = shouldAnimateDimensions
       ? morphMode
         ? withSpring(bodyWidth, dimensionSpring)
@@ -122,6 +134,7 @@ function useToastEffects(params: IUseToastEffectsParams) {
     values.collapsedHeight,
     values.expandedHeight,
     values.pillWidth,
+    values.shapeTarget,
     shouldShowExpandedBody,
     springConfig,
   ]);

@@ -12,40 +12,50 @@ import { getToastPath } from "./use-animated-path-props";
 
 /**
  * Shadow path and opacity for a shadow that shows only while the shape is at
- * rest. The path updates once the morph settles, never during it, so the
- * shadow doesn't redraw every frame. Animations snap to their target when
- * they finish, so the shape is at rest once every input equals its target.
+ * rest: the morph progress has settled on 0 or 1 and every size is within
+ * half a dp of the target it is animating to. The path is built from the
+ * targets and only replaced when it differs, so settling on the same shape
+ * doesn't redraw the shadow.
  */
 const useAnimatedShadowProps = <T extends IUseToastAnimatedStylesParams>(
   params: T,
 ) => {
+  const { values, morphAlign, bodyWidth, noHeader = false } = params;
+  const shadowAtRest = params.shadowAtRest ?? false;
   const {
-    values,
-    morphAlign,
-    bodyWidth,
     bodyRadius,
+    bodyWidth: bodyW,
+    cornerSmoothing,
     expandedHeight,
-    noHeader = false,
+    morphProgress,
     pillWidth,
-    shadowAtRest = false,
-  } = params;
+    removeProgress,
+    shapeTarget,
+  } = values;
   const restPath = useSharedValue("");
   const shadowOpacity = useSharedValue(0);
 
   useAnimatedReaction(
     () => {
       if (!shadowAtRest) return null;
-      const progress = values.morphProgress.value;
+      const progress = morphProgress.value;
+      const target = shapeTarget.value;
       const isAtRest =
         (progress === 0 || progress === 1) &&
-        values.removeProgress.value === 0 &&
-        values.bodyWidth.value === bodyWidth &&
-        values.pillWidth.value === pillWidth &&
-        values.expandedHeight.value === expandedHeight &&
-        values.bodyRadius.value === bodyRadius;
-      return isAtRest
-        ? getToastPath(values, bodyWidth, morphAlign, noHeader)
-        : null;
+        removeProgress.value === 0 &&
+        Math.abs(bodyW.value - target.bodyWidth) < REST_TOLERANCE &&
+        Math.abs(pillWidth.value - target.pillWidth) < REST_TOLERANCE &&
+        Math.abs(expandedHeight.value - target.expandedHeight) <
+          REST_TOLERANCE &&
+        Math.abs(bodyRadius.value - target.bodyRadius) < REST_TOLERANCE;
+      if (!isAtRest) return null;
+
+      return getToastPath(
+        { ...target, progress, smoothing: cornerSmoothing.value },
+        bodyWidth,
+        morphAlign,
+        noHeader,
+      );
     },
     (path, previous) => {
       if (path === previous) return;
@@ -54,21 +64,15 @@ const useAnimatedShadowProps = <T extends IUseToastAnimatedStylesParams>(
         shadowOpacity.value = 0;
         return;
       }
-      restPath.value = path;
-      shadowOpacity.value = withTiming(1, {
-        duration: SHADOW_FADE_IN_DURATION,
-        easing: Easing.out(Easing.quad),
-      });
+      if (path !== restPath.value) restPath.value = path;
+      if (shadowOpacity.value < 1) {
+        shadowOpacity.value = withTiming(1, {
+          duration: SHADOW_FADE_IN_DURATION,
+          easing: Easing.out(Easing.quad),
+        });
+      }
     },
-    [
-      bodyRadius,
-      bodyWidth,
-      expandedHeight,
-      morphAlign,
-      noHeader,
-      pillWidth,
-      shadowAtRest,
-    ],
+    [bodyWidth, morphAlign, noHeader, shadowAtRest],
   );
 
   const shadowPathProps = useAnimatedProps(() => {
@@ -81,6 +85,7 @@ const useAnimatedShadowProps = <T extends IUseToastAnimatedStylesParams>(
   return { shadowPathProps, shadowStyle };
 };
 
+const REST_TOLERANCE = 0.5;
 const SHADOW_FADE_IN_DURATION = 150;
 
 export { useAnimatedShadowProps };

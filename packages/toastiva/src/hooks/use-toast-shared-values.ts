@@ -1,7 +1,14 @@
-import type { IToastSharedValue } from "../typings/shared/ToastSharedValue";
+import type {
+  IToastShapeTarget,
+  IToastSharedValue,
+} from "../typings/shared/ToastSharedValue";
 import { useMemo } from "react";
 import { useSharedValue } from "react-native-reanimated";
-import { DEFAULT_BODY_RADIUS, DEFAULT_CORNER_SMOOTHING, PH } from "../constants";
+import {
+  DEFAULT_BODY_RADIUS,
+  DEFAULT_CORNER_SMOOTHING,
+  PH,
+} from "../constants";
 
 function useToastSharedValues(): IToastSharedValue {
   const actionProgress = useSharedValue<number>(0);
@@ -17,6 +24,12 @@ function useToastSharedValues(): IToastSharedValue {
   const pillWidth = useSharedValue<number>(PH);
   const progress = useSharedValue<number>(0);
   const removeProgress = useSharedValue<number>(0);
+  const shapeTarget = useSharedValue<IToastShapeTarget>({
+    bodyRadius: DEFAULT_BODY_RADIUS,
+    bodyWidth: PH,
+    expandedHeight: PH,
+    pillWidth: PH,
+  });
   const shakeX = useSharedValue<number>(0);
   const shellHeight = useSharedValue<number>(PH);
   const squishX = useSharedValue<number>(1);
@@ -43,6 +56,7 @@ function useToastSharedValues(): IToastSharedValue {
       pillWidth,
       progress,
       removeProgress,
+      shapeTarget,
       shakeX,
       shellHeight,
       squishX,
@@ -68,6 +82,7 @@ function useToastSharedValues(): IToastSharedValue {
       pillWidth,
       progress,
       removeProgress,
+      shapeTarget,
       shakeX,
       shellHeight,
       squishX,
