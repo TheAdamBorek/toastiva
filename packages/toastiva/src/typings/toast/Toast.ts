@@ -184,6 +184,7 @@ interface IToastivaOptions {
   showTimestamp?: boolean;
   springConfig?: TToastivaSpringConfig;
   stroke?: string;
+  strokeWidth?: number;
   styles?: IToastivaStyleOverrides;
   timing?: IToastivaTiming;
   title: string;
@@ -231,6 +232,7 @@ interface IToastivaData {
   showTimestamp?: boolean;
   springConfig?: TToastivaSpringConfig;
   stroke?: string;
+  strokeWidth?: number;
   styles?: IToastivaStyleOverrides;
   timing?: IToastivaTiming;
   title: string;
@@ -289,6 +291,7 @@ interface IToastivaConfig {
   showTimestamp?: boolean;
   springConfig?: TToastivaSpringConfig;
   stroke?: string;
+  strokeWidth?: number;
   styles?: IToastivaStyleOverrides;
   swipeThreshold?: number;
   swipeToDismiss?: boolean;

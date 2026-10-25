@@ -4,6 +4,7 @@ import { cancelAnimation } from "react-native-reanimated";
 import {
   DEFAULT_BODY_RADIUS,
   DEFAULT_CORNER_SMOOTHING,
+  DEFAULT_STROKE_WIDTH,
   PH,
   SHOW_BODY_DELAY,
 } from "../constants";
@@ -459,6 +460,10 @@ function useToastCard(props: IToastivaProps) {
       props.toast.stroke ??
       props.defaultStroke ??
       theme.surfaceStrokeColors[props.toast.type],
+    strokeWidth:
+      props.toast.strokeWidth ??
+      props.defaultStrokeWidth ??
+      DEFAULT_STROKE_WIDTH,
     styleOverrides,
     surfaceFill:
       props.toast.fill ??

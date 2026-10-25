@@ -72,6 +72,7 @@ const ToastCard: React.MemoExoticComponent<React.FC<IToastCardProps>> = memo(
                   showBody={props.showBody}
                   showProgress={props.showProgress}
                   stroke={props.stroke}
+                  strokeWidth={props.strokeWidth}
                   styleOverrides={props.styleOverrides}
                   surfaceFill={props.surfaceFill}
                 />
