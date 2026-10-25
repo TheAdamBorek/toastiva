@@ -24,6 +24,7 @@ interface IToastivaProps {
   defaultShowTimestamp: boolean;
   defaultSpringConfig?: ValueOf<IToastivaConfig, "springConfig">;
   defaultStroke?: ValueOf<IToastivaConfig, "stroke">;
+  defaultStrokeWidth?: ValueOf<IToastivaConfig, "strokeWidth">;
   defaultStyles?: ValueOf<IToastivaConfig, "styles">;
   dismissPaused?: boolean;
   expanded: boolean;

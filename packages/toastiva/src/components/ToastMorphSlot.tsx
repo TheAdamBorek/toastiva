@@ -143,6 +143,7 @@ const ToastMorphSlot: React.MemoExoticComponent<
             defaultShowTimestamp={props.showTimestamp}
             defaultSpringConfig={props.defaultSpringConfig}
             defaultStroke={props.defaultStroke}
+            defaultStrokeWidth={props.defaultStrokeWidth}
             defaultStyles={props.defaultStyles}
             onRemove={props.onRemove}
             onHeightChange={props.onHeightChange}

@@ -39,6 +39,7 @@ interface IToastSurfaceProps {
   showBody: boolean;
   showProgress: boolean;
   stroke: string;
+  strokeWidth: number;
   styleOverrides?: ValueOf<IToastivaData, "styles">;
   surfaceFill: string;
   toast: IToastivaData;

@@ -57,6 +57,7 @@ Common props:
   <tr><td><code>position</code></td><td>e.g. <code>"top-center"</code>, <code>"bottom-right"</code>.</td></tr>
   <tr><td><code>fill</code></td><td>Surface fill color.</td></tr>
   <tr><td><code>stroke</code></td><td>Surface stroke color.</td></tr>
+  <tr><td><code>strokeWidth</code></td><td>Surface stroke width in dp. Defaults to <code>0.6</code>.</td></tr>
   <tr><td><code>iosBlurTint</code></td><td>iOS blur tint — <code>"light"</code>, <code>"dark"</code>, etc.</td></tr>
   <tr><td><code>disableIOSBlur</code></td><td>Disable the iOS blur layer.</td></tr>
   <tr><td><code>androidShadow</code></td><td>Android surface shadow &mdash; <code>false</code> to disable, or an object to tune it. See <a href="./styling.md#shadow-on-android">Styling</a>.</td></tr>

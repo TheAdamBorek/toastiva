@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   cancelAnimation,
   Easing,
@@ -22,22 +23,39 @@ const useAnimatedShadowProps = <T extends IUseToastAnimatedStylesParams>(
 ) => {
   const { values, morphAlign, bodyWidth, noHeader = false } = params;
   const shadowAtRest = params.shadowAtRest ?? false;
-  const {
-    bodyRadius,
-    bodyWidth: bodyW,
-    cornerSmoothing,
-    expandedHeight,
-    morphProgress,
-    pillWidth,
-    removeProgress,
-    shapeTarget,
-  } = values;
+  // Without the shadow the reaction watches no shared values, so it never runs.
+  const watched = useMemo(
+    () =>
+      shadowAtRest
+        ? {
+            bodyRadius: values.bodyRadius,
+            bodyW: values.bodyWidth,
+            cornerSmoothing: values.cornerSmoothing,
+            expandedHeight: values.expandedHeight,
+            morphProgress: values.morphProgress,
+            pillWidth: values.pillWidth,
+            removeProgress: values.removeProgress,
+            shapeTarget: values.shapeTarget,
+          }
+        : null,
+    [shadowAtRest, values],
+  );
   const restPath = useSharedValue("");
   const shadowOpacity = useSharedValue(0);
 
   useAnimatedReaction(
     () => {
-      if (!shadowAtRest) return null;
+      if (!watched) return null;
+      const {
+        bodyRadius,
+        bodyW,
+        cornerSmoothing,
+        expandedHeight,
+        morphProgress,
+        pillWidth,
+        removeProgress,
+        shapeTarget,
+      } = watched;
       const progress = morphProgress.value;
       const target = shapeTarget.value;
       const isAtRest =
@@ -72,7 +90,7 @@ const useAnimatedShadowProps = <T extends IUseToastAnimatedStylesParams>(
         });
       }
     },
-    [bodyWidth, morphAlign, noHeader, shadowAtRest],
+    [bodyWidth, morphAlign, noHeader, watched],
   );
 
   const shadowPathProps = useAnimatedProps(() => {

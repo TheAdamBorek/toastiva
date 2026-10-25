@@ -92,6 +92,7 @@ const ToastStack: React.MemoExoticComponent<React.FC<IToastStackProps>> = memo(
               defaultShowTimestamp={props.showTimestamp}
               defaultSpringConfig={props.defaultSpringConfig}
               defaultStroke={props.defaultStroke}
+              defaultStrokeWidth={props.defaultStrokeWidth}
               defaultStyles={props.defaultStyles}
               onRemove={props.onRemove}
               onHeightChange={props.onHeightChange}

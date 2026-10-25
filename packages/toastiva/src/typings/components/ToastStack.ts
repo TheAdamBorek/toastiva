@@ -21,6 +21,7 @@ interface IToastStackProps {
   defaultIOSBlurTint: ValueOf<IToastivaConfig, "iosBlurTint">;
   defaultSpringConfig: ValueOf<IToastivaConfig, "springConfig">;
   defaultStroke: ValueOf<IToastivaConfig, "stroke">;
+  defaultStrokeWidth: ValueOf<IToastivaConfig, "strokeWidth">;
   defaultStyles: ValueOf<IToastivaConfig, "styles">;
   expand: boolean;
   gap: number;

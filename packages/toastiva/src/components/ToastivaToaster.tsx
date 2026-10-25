@@ -54,6 +54,7 @@ const ToastivaToaster: React.MemoExoticComponent<
       showTimestamp = true,
       springConfig,
       stroke,
+      strokeWidth,
       styles: styleOverrides,
       swipeToDismiss = true,
       swipeThreshold = DEFAULT_SWIPE_THRESHOLD,
@@ -134,6 +135,7 @@ const ToastivaToaster: React.MemoExoticComponent<
               defaultIOSBlurTint={iosBlurTint}
               defaultSpringConfig={springConfig}
               defaultStroke={stroke}
+              defaultStrokeWidth={strokeWidth}
               defaultStyles={styleOverrides}
               topInset={top}
               vertical={slot.vertical}
@@ -181,6 +183,7 @@ const ToastivaToaster: React.MemoExoticComponent<
               defaultIOSBlurTint={iosBlurTint}
               defaultSpringConfig={springConfig}
               defaultStroke={stroke}
+              defaultStrokeWidth={strokeWidth}
               defaultStyles={styleOverrides}
               topInset={top}
               vertical={slot.vertical}

@@ -25,6 +25,9 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
         : 0;
       const shadowWidth = props.bodyWidth + shadowInset * 2;
       const shadowHeight = props.renderHeight + shadowInset * 2;
+      const strokeInset = props.strokeWidth / 2;
+      const surfaceWidth = props.bodyWidth + strokeInset * 2;
+      const surfaceHeight = props.renderHeight + strokeInset * 2;
 
       return (
         <View
@@ -65,12 +68,13 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
             </Animated.View>
           ) : null}
           <Svg
-            width={props.bodyWidth}
-            height={props.renderHeight}
-            viewBox={`0 0 ${props.bodyWidth} ${props.renderHeight}`}
+            width={surfaceWidth}
+            height={surfaceHeight}
+            viewBox={`${-strokeInset} ${-strokeInset} ${surfaceWidth} ${surfaceHeight}`}
             fill="none"
             style={[
               styles.svgBg,
+              { top: -strokeInset, left: -strokeInset },
               Platform.OS === "web" ? svgShapeShadowStyle : null,
             ]}
           >
@@ -78,7 +82,7 @@ const ToastSurface: React.MemoExoticComponent<React.FC<IToastSurfaceProps>> =
               animatedProps={props.animatedPathProps}
               fill={props.surfaceFill}
               stroke={props.stroke}
-              strokeWidth={0.6}
+              strokeWidth={props.strokeWidth}
             />
           </Svg>
 
