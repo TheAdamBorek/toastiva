@@ -1,6 +1,7 @@
 import type { IUseToastDismissParams } from "../typings";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  cancelAnimation,
   Easing,
   withDelay,
   withSpring,
@@ -31,6 +32,7 @@ function useToastDismiss(params: IUseToastDismissParams) {
   const remainingRef = useRef<number | null>(null);
   const timerStartRef = useRef(0);
   const timerVersionRef = useRef(toast.timerVersion);
+  const countdownStartedRef = useRef(false);
   const expandedBodyVisibleRef = useRef(false);
   const collapseDuration = getCollapseDuration(toast);
   const displayDuration = getDisplayDuration(toast);
@@ -39,6 +41,7 @@ function useToastDismiss(params: IUseToastDismissParams) {
     dismissedRef.current = false;
     remainingRef.current = null;
     timerStartRef.current = 0;
+    countdownStartedRef.current = false;
     expandedBodyVisibleRef.current = false;
     setIsDismissing(false);
     return () => {
@@ -91,17 +94,16 @@ function useToastDismiss(params: IUseToastDismissParams) {
     values.descriptionProgress.value = contentFade;
     values.actionProgress.value = contentFade;
 
-    const exitFadeDuration = 300;
     const exitDelay = collapseBeforeExit ? DISMISS_COLLAPSE_LEAD : 0;
     values.removeProgress.value = withDelay(
       exitDelay,
       withTiming(1, {
-        duration: exitFadeDuration,
+        duration: DISMISS_EXIT_FADE,
         easing: Easing.out(Easing.cubic),
       }),
     );
     toast.onDismiss?.();
-    setTimeout(() => onRemove(toast.id), exitDelay + exitFadeDuration + 40);
+    setTimeout(() => onRemove(toast.id), exitDelay + DISMISS_EXIT_FADE + 40);
   }, [
     collapseDuration,
     animationConfig.morph.collapseDuration,
@@ -113,7 +115,10 @@ function useToastDismiss(params: IUseToastDismissParams) {
     values,
   ]);
 
+  // The progress bar runs on this countdown: it starts, pauses and restarts
+  // with the timer and empties when the dismiss starts.
   useEffect(() => {
+    if (dismissedRef.current) return;
     if (paused) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -124,18 +129,31 @@ function useToastDismiss(params: IUseToastDismissParams) {
 
     if (hasBody && shouldAutoExpand && !showBody) return;
 
-    const autoDismissDelay =
-      hasBody && shouldAutoExpand
-        ? Math.max(0, displayDuration - SHOW_BODY_DELAY - collapseDuration)
-        : displayDuration;
-
     if (timerVersionRef.current !== toast.timerVersion) {
       timerVersionRef.current = toast.timerVersion;
       remainingRef.current = null;
     }
 
+    // `duration` is the time until the toast is gone, so the countdown leaves
+    // room for the exit and, on a fresh toast, for the body reveal before it.
+    const collapsesBeforeExit = hasBody && shouldAutoExpand;
+    const revealDelay =
+      collapsesBeforeExit && !countdownStartedRef.current ? SHOW_BODY_DELAY : 0;
+    const exitDuration =
+      (collapsesBeforeExit ? DISMISS_COLLAPSE_LEAD : 0) + DISMISS_EXIT_FADE;
+    const autoDismissDelay = Math.max(
+      0,
+      displayDuration - revealDelay - exitDuration,
+    );
+
+    if (remainingRef.current === null) values.progress.value = 0;
     const delay = remainingRef.current ?? autoDismissDelay;
+    countdownStartedRef.current = true;
     timerStartRef.current = Date.now();
+    values.progress.value = withTiming(1, {
+      duration: delay,
+      easing: Easing.linear,
+    });
 
     timerRef.current = setTimeout(() => {
       remainingRef.current = null;
@@ -145,12 +163,11 @@ function useToastDismiss(params: IUseToastDismissParams) {
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      cancelAnimation(values.progress);
       const elapsed = Date.now() - timerStartRef.current;
-      const remaining = delay - elapsed;
-      remainingRef.current = remaining > 0 ? remaining : null;
+      remainingRef.current = Math.max(0, delay - elapsed);
     };
   }, [
-    collapseDuration,
     displayDuration,
     expanded,
     handleDismiss,
@@ -161,12 +178,14 @@ function useToastDismiss(params: IUseToastDismissParams) {
     showBody,
     shouldAutoExpand,
     toast,
+    values.progress,
   ]);
 
   return { handleDismiss, isDismissing };
 }
 
 const DISMISS_COLLAPSE_LEAD = 170;
+const DISMISS_EXIT_FADE = 300;
 
 function getSmoothDismissCollapseDuration(duration: number) {
   return Math.max(260, duration);
