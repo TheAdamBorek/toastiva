@@ -28,6 +28,7 @@ const EMERGE_END = 46;
 const EMERGE_END_RATIO = 0.8;
 const SHOULDER_ASPECT = 1.6;
 const WING_RAMP = 6;
+const CONTENT_FADE_RANGE = 24;
 
 function clamp01(value: number) {
   "worklet";
@@ -46,6 +47,19 @@ function getMorphEmergence(bodyHeight: number, fullBodyHeight: number) {
   const start = Math.min(EMERGE_START, end * 0.3);
   if (end <= start) return bodyHeight > 0 ? 1 : 0;
   return smoothstep((bodyHeight - start) / (end - start));
+}
+
+/**
+ * Opacity cap for the body content: 1 while the body is at full width, 0 once
+ * it starts narrowing towards the pill, so the content never sticks out of
+ * the shape while it collapses.
+ */
+function getMorphContentVisibility(bodyHeight: number, fullBodyHeight: number) {
+  "worklet";
+  const narrowStart = Math.min(EMERGE_END, fullBodyHeight * EMERGE_END_RATIO);
+  const fadeEnd = Math.min(fullBodyHeight, narrowStart + CONTENT_FADE_RANGE);
+  if (fadeEnd <= narrowStart) return bodyHeight > narrowStart ? 1 : 0;
+  return clamp01((bodyHeight - narrowStart) / (fadeEnd - narrowStart));
 }
 
 function getMorphExtents(
@@ -266,5 +280,11 @@ function morphPanelPath(
   ].join(" ");
 }
 
-export { getMorphEmergence, getMorphExtents, morphPanelPath, morphShapePath };
+export {
+  getMorphContentVisibility,
+  getMorphEmergence,
+  getMorphExtents,
+  morphPanelPath,
+  morphShapePath,
+};
 export type { IMorphExtents };
